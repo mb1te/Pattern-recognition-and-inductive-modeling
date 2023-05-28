@@ -1,17 +1,18 @@
 from abc import ABC, abstractmethod
 
 import numpy as np
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, make_scorer
 
 
 class BestModelDetector(ABC):
-    metric = f1_score
+    scorer = make_scorer(f1_score, average="weighted")
     X = None
     y = None
+    clf = None
 
+    @abstractmethod
     def fit(self, X: np.ndarray, y: np.ndarray) -> None:
-        self.X = X
-        self.y = y
+        ...
 
     @abstractmethod
     def predict(self, X: np.ndarray) -> np.ndarray:

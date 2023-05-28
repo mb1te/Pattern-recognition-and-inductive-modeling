@@ -2,4 +2,16 @@ services:
   backend:
     build: backend
     volumes:
-      - .:/app
+      - ./backend:/app
+    ports:
+      - "8080:8080"
+    env_file: ./backend/.env
+    command: python3 src/server.py
+
+  ipython:
+    build: backend
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8888:8888"
+    command: jupyter notebook --port=8888 --no-browser --ip=0.0.0.0 --allow-root
